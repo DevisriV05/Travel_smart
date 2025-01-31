@@ -5,14 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Travel Smart</title>
     <style>
-        body {
+         body {
             font-family: Arial, sans-serif;
-            background-color: #f1f1f1;
+            background: url('login.jpg') no-repeat center center fixed;
+            background-size: cover;
             padding: 50px;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            color: white; /* Ensure text is visible on top of the background */
         }
         .login-form {
             background-color: #fff;
@@ -87,7 +89,7 @@
             <button type="submit">Login</button>
         </form>
         <div class="footer">
-            <p>Don't have an account? <a href="register.html">Sign Up</a></p>
+             <a href="register.html">Sign Up</a>
         </div>
     </div>
     <button class="back-to-home" onclick="window.location.href='index.html'">Back to Home</button>
