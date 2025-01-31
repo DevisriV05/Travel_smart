@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Suggestions in South Indian Cities</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f9f9f9;
+            font-size: 16px;
+            color: #333;
+        }
+
+        header {
+            background-color: #f46a13;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .search-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .search-bar {
+            padding: 10px;
+            width: 300px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+            margin-right: 10px;
+        }
+
+        .search-button {
+            padding: 10px 20px;
+            background-color: #f46a13;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .search-button:hover {
+            background-color: #d65a1e;
+        }
+
+        .food-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding-top: 20px;
+        }
+
+        .food-item {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .food-item h3 {
+            margin-bottom: 10px;
+            color: #f46a13;
+        }
+
+        .food-item p {
+            margin-bottom: 10px;
+        }
+
+        .no-results {
+            text-align: center;
+            font-size: 18px;
+            color: #f46a13;
+            margin-top: 20px;
+        }
+        .back-to-home {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #f46a13;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-to-home:hover {
+            background-color: #e45b1e;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Food Suggestions in South Indian Cities</h1>
+        <p>Explore the best food options in your favorite South Indian city.</p>
+    </header>
+
+    <!-- Search Bar -->
+    <div class="search-container">
+        <input type="text" id="citySearch" class="search-bar" placeholder="Enter city name (e.g., Chennai)">
+        <button class="search-button" onclick="searchFood()">Search</button>
+    </div>
+
+    <!-- Food List -->
+    <div id="foodList" class="food-list">
+        <!-- Content will be dynamically added here based on search -->
+    </div>
+
+    <script>
+        // Define food suggestions for different cities
+        const foodSuggestions = {
+            chennai: [
+                {
+                    name: "Idli and Sambar",
+                    description: "A traditional South Indian breakfast dish with rice cakes and spicy sambar.",
+                    priceRange: "₹40 - ₹100"
+                },
+                {
+                    name: "Dosa",
+                    description: "Crispy rice crepes served with coconut chutney and sambar.",
+                    priceRange: "₹50 - ₹120"
+                },
+                {
+                    name: "Chettinad Chicken Curry",
+                    description: "A spicy and flavorful chicken curry from the Chettinad region.",
+                    priceRange: "₹150 - ₹250"
+                }
+            ],
+            hyderabad: [
+                {
+                    name: "Hyderabadi Biryani",
+                    description: "A fragrant and spicy rice dish made with basmati rice and marinated meat.",
+                    priceRange: "₹150 - ₹300"
+                },
+                {
+                    name: "Pesarattu",
+                    description: "A green gram pancake, typically served with ginger chutney.",
+                    priceRange: "₹50 - ₹100"
+                },
+                {
+                    name: "Irani Tea and Osmania Biscuits",
+                    description: "A popular tea served with crispy, buttery biscuits.",
+                    priceRange: "₹30 - ₹80"
+                }
+            ],
+            bangalore: [
+                {
+                    name: "Mysore Pak",
+                    description: "A traditional sweet made of ghee, sugar, and chickpea flour.",
+                    priceRange: "₹50 - ₹100"
+                },
+                {
+                    name: "Vada Pav",
+                    description: "Spicy mashed potato fritters served in a bun.",
+                    priceRange: "₹30 - ₹70"
+                },
+                {
+                    name: "Ragi Mudde",
+                    description: "A nutritious ball made from finger millet, served with sambar.",
+                    priceRange: "₹40 - ₹100"
+                }
+            ],
+            kochi: [
+                {
+                    name: "Kerala Sadya",
+                    description: "A traditional vegetarian feast served on a banana leaf, with rice and various curries.",
+                    priceRange: "₹250 - ₹500"
+                },
+                {
+                    name: "Appam and Stew",
+                    description: "Soft rice pancakes served with a creamy vegetable stew.",
+                    priceRange: "₹100 - ₹150"
+                },
+                {
+                    name: "Karimeen Pollichathu",
+                    description: "Pearl spot fish marinated in spices, wrapped in a banana leaf, and grilled.",
+                    priceRange: "₹350 - ₹600"
+                }
+            ],
+            madurai: [
+                {
+                    name: "Mutton Biryani",
+                    description: "A spicy mutton rice dish served with a boiled egg and raita.",
+                    priceRange: "₹150 - ₹300"
+                },
+                {
+                    name: "Jigarthanda",
+                    description: "A Madurai special cold drink made with milk, ice cream, and herbs.",
+                    priceRange: "₹50 - ₹80"
+                },
+                {
+                    name: "Kari Dosa",
+                    description: "A crispy dosa served with spicy mutton curry.",
+                    priceRange: "₹100 - ₹200"
+                }
+            ]
+        };
+
+        // Function to search food suggestions by city
+        function searchFood() {
+            const cityInput = document.getElementById("citySearch").value.trim().toLowerCase();
+            const foodList = document.getElementById("foodList");
+            foodList.innerHTML = "";  // Clear the previous search results
+
+            if (cityInput === "") {
+                return;
+            }
+
+            if (foodSuggestions[cityInput]) {
+                // If the city exists in the data, display the food suggestions
+                foodSuggestions[cityInput].forEach(food => {
+                    const item = document.createElement("div");
+                    item.classList.add("food-item");
+
+                    item.innerHTML = `
+                        <h3>${food.name}</h3>
+                        <p>${food.description}</p>
+                        <p class="price-range">${food.priceRange}</p>
+                    `;
+                    foodList.appendChild(item);
+                });
+            } else {
+                // If no food suggestions found for the city, display a no results message
+                const noResultsMessage = document.createElement("div");
+                noResultsMessage.classList.add("no-results");
+                noResultsMessage.textContent = "No food suggestions found for the city you entered.";
+                foodList.appendChild(noResultsMessage);
+            }
+        }
+    </script>
+    <button class="back-to-home" onclick="window.location.href='index.html'">Back to Home</button>
+
+</body>
+</html>

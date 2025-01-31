@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Suggestions in South Indian Cities</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f9f9f9;
+            font-size: 16px;
+            color: #333;
+        }
+
+        header {
+            background-color: #f46a13;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .search-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .search-bar {
+            padding: 10px;
+            width: 300px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+            margin-right: 10px;
+        }
+
+        .search-button {
+            padding: 10px 20px;
+            background-color: #f46a13;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .search-button:hover {
+            background-color: #d65a1e;
+        }
+
+        .restaurant-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding-top: 20px;
+        }
+
+        .restaurant-item {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .restaurant-item h3 {
+            margin-bottom: 10px;
+            color: #f46a13;
+        }
+
+        .restaurant-item p {
+            margin-bottom: 10px;
+        }
+
+        .no-results {
+            text-align: center;
+            font-size: 18px;
+            color: #f46a13;
+            margin-top: 20px;
+        }
+        .back-to-service {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #f46a13;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-to-service:hover {
+            background-color: #e45b1e;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Restaurant Suggestions in South Indian Cities</h1>
+        <p>Explore the best restaurants in your favorite South Indian city.</p>
+    </header>
+
+    <!-- Search Bar -->
+    <div class="search-container">
+        <input type="text" id="citySearch" class="search-bar" placeholder="Enter city name (e.g., Chennai)">
+        <button class="search-button" onclick="searchRestaurants()">Search</button>
+    </div>
+
+    <!-- Restaurant List -->
+    <div id="restaurantList" class="restaurant-list">
+        <!-- Content will be dynamically added here based on search -->
+    </div>
+
+    <script>
+        // Define restaurant suggestions for different cities
+        const restaurantSuggestions = {
+            chennai: [
+                {
+                    name: "Anandha Bhavan",
+                    description: "A popular vegetarian restaurant serving traditional South Indian dishes.",
+                    rating: "4.5/5",
+                    priceRange: "₹200 - ₹500"
+                },
+                {
+                    name: "The Marina",
+                    description: "Specializes in fresh seafood, offering a great dining experience with a view of the beach.",
+                    rating: "4.0/5",
+                    priceRange: "₹500 - ₹1500"
+                },
+                {
+                    name: "Dindigul Thalappakatti",
+                    description: "Famous for its authentic Dindigul-style biryani and local specialties.",
+                    rating: "4.2/5",
+                    priceRange: "₹250 - ₹700"
+                }
+            ],
+            hyderabad: [
+                {
+                    name: "Paradise Biryani",
+                    description: "Renowned for its Hyderabadi Biryani and Mughlai delicacies.",
+                    rating: "4.7/5",
+                    priceRange: "₹300 - ₹800"
+                },
+                {
+                    name: "Bawarchi",
+                    description: "A go-to spot for Hyderabadi food lovers, offering a wide range of dishes.",
+                    rating: "4.3/5",
+                    priceRange: "₹200 - ₹700"
+                },
+                {
+                    name: "Shilparamam Food Court",
+                    description: "A cultural village offering regional dishes, arts, and crafts.",
+                    rating: "4.1/5",
+                    priceRange: "₹100 - ₹500"
+                }
+            ],
+            bangalore: [
+                {
+                    name: "MTR (Mavalli Tiffin Rooms)",
+                    description: "Famous for its South Indian tiffin items like dosa, idli, and vada.",
+                    rating: "4.8/5",
+                    priceRange: "₹150 - ₹400"
+                },
+                {
+                    name: "Rim Naam",
+                    description: "An elegant rooftop restaurant serving continental and Indian cuisine.",
+                    rating: "4.6/5",
+                    priceRange: "₹1000 - ₹2000"
+                },
+                {
+                    name: "VV Puram Food Street",
+                    description: "A bustling food street offering street food and snacks from all over India.",
+                    rating: "4.0/5",
+                    priceRange: "₹50 - ₹200"
+                }
+            ],
+            kochi: [
+                {
+                    name: "Sree Krishna Vilasam",
+                    description: "Serves traditional Kerala Sadya, a complete vegetarian feast.",
+                    rating: "4.4/5",
+                    priceRange: "₹250 - ₹600"
+                },
+                {
+                    name: "Fort Kochi Beach Restaurant",
+                    description: "Located by the beach, this restaurant serves seafood and Kerala cuisine.",
+                    rating: "4.5/5",
+                    priceRange: "₹500 - ₹1200"
+                },
+                {
+                    name: "Kashi Art Café",
+                    description: "A quirky café serving a mix of Kerala and continental dishes.",
+                    rating: "4.2/5",
+                    priceRange: "₹200 - ₹700"
+                }
+            ],
+            madurai: [
+                {
+                    name: "Konar Mess",
+                    description: "Famous for its Madurai-style biryani and local South Indian snacks.",
+                    rating: "4.6/5",
+                    priceRange: "₹150 - ₹400"
+                },
+                {
+                    name: "Murugan Idli Shop",
+                    description: "A popular breakfast spot for idlis, dosas, and sambar.",
+                    rating: "4.4/5",
+                    priceRange: "₹50 - ₹200"
+                },
+                {
+                    name: "Sri Saravana Bhavan",
+                    description: "Known for its authentic Tamil Nadu vegetarian food.",
+                    rating: "4.3/5",
+                    priceRange: "₹100 - ₹300"
+                }
+            ]
+        };
+
+        // Function to search restaurant suggestions by city
+        function searchRestaurants() {
+            const cityInput = document.getElementById("citySearch").value.trim().toLowerCase();
+            const restaurantList = document.getElementById("restaurantList");
+            restaurantList.innerHTML = "";  // Clear the previous search results
+
+            if (cityInput === "") {
+                return;
+            }
+
+            if (restaurantSuggestions[cityInput]) {
+                // If the city exists in the data, display the restaurant suggestions
+                restaurantSuggestions[cityInput].forEach(restaurant => {
+                    const item = document.createElement("div");
+                    item.classList.add("restaurant-item");
+
+                    item.innerHTML = `
+                        <h3>${restaurant.name}</h3>
+                        <p>${restaurant.description}</p>
+                        <p><strong>Rating:</strong> ${restaurant.rating}</p>
+                        <p><strong>Price Range:</strong> ${restaurant.priceRange}</p>
+                    `;
+                    restaurantList.appendChild(item);
+                });
+            } else {
+                // If no restaurant suggestions found for the city, display a no results message
+                const noResultsMessage = document.createElement("div");
+                noResultsMessage.classList.add("no-results");
+                noResultsMessage.textContent = "No restaurant suggestions found for the city you entered.";
+                restaurantList.appendChild(noResultsMessage);
+            }
+        }
+    </script>
+    <button class="back-to-service" onclick="window.location.href='service.html'">Back to Services</button>
+</body>
+</html>

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Events in South Indian Cities</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            /*background-color: #f9f9f9;*/
+            background-image: url('tea.jpg'); /* Change to your image path */
+            background-size: cover;  /* Cover the entire screen */
+            background-position: center;  /* Center the image */
+            background-attachment: fixed;
+            font-size: 16px;
+            color: #333;
+        }
+
+        header {
+            background-color: #f46a13;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .search-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .search-bar {
+            padding: 10px;
+            width: 300px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+            margin-right: 10px;
+        }
+
+        .search-button {
+            padding: 10px 20px;
+            background-color: #f46a13;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .search-button:hover {
+            background-color: #d65a1e;
+        }
+
+        .event-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding-top: 20px;
+        }
+
+        .event-item {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .event-item h3 {
+            margin-bottom: 10px;
+            color: #f46a13;
+        }
+
+        .event-item p {
+            margin-bottom: 10px;
+        }
+
+        .no-results {
+            text-align: center;
+            font-size: 18px;
+            color: #f46a13;
+            margin-top: 20px;
+        }
+        .back-to-service {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #f46a13;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-to-service:hover {
+            background-color: #e45b1e;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Local Events in South Indian Cities</h1>
+        <p>Discover exciting local events happening in South Indian cities.</p>
+    </header>
+
+    <!-- Search Bar -->
+    <div class="search-container">
+        <input type="text" id="citySearch" class="search-bar" placeholder="Enter city name (e.g., Chennai)">
+        <button class="search-button" onclick="searchEvents()">Search</button>
+    </div>
+
+    <!-- Event List -->
+    <div id="eventList" class="event-list">
+        <!-- Content will be dynamically added here based on search -->
+    </div>
+
+    <script>
+        // Define event suggestions for different cities
+        const eventSuggestions = {
+            chennai: [
+                {
+                    name: "Chennai Music Festival",
+                    description: "A week-long celebration of classical and contemporary music with performances from renowned artists.",
+    
+                    location: "Music Academy, Chennai"
+                },
+                {
+                    name: "Chennai Book Fair",
+                    description: "An annual event showcasing books from various genres with interactive sessions and author meetups.",
+    
+                    location: "Chennai Trade Centre"
+                },
+                {
+                    name: "Marina Beach Festival",
+                    description: "A local beach festival featuring food stalls, cultural performances, and beach games.",
+    
+                    location: "Marina Beach, Chennai"
+                }
+            ],
+            hyderabad: [
+                {
+                    name: "Hyderabad Literary Festival",
+                    description: "A celebration of literature, featuring panel discussions, book launches, and author workshops.",
+        
+                    location: "Hyderabad Public Library"
+                },
+    
+                {
+                    name: "Hyderabad Food Festival",
+                    description: "A foodie's paradise showcasing the best of Hyderabadi cuisine including Biryani and kebabs.",
+
+                    location: "Nehru Zoological Park"
+                }
+            ],
+            bangalore: [
+                {
+                    name: "Bangalore International Film Festival",
+                    description: "A week-long film festival celebrating international cinema with screenings, workshops, and seminars.",
+    
+                    location: "NIMHANS Convention Centre, Bangalore"
+                },
+                {
+                    name: "Nandi Hills Trekking Event",
+                    description: "A guided trekking event to Nandi Hills for adventure lovers and nature enthusiasts.",
+    
+                    location: "Nandi Hills, Bangalore"
+                },
+                {
+                    name: "Bangalore Fashion Week",
+                    description: "A showcase of fashion trends with designers, runway shows, and style workshops.",
+            
+                    location: "UB City Mall, Bangalore"
+                }
+            ],
+            kochi: [
+                {
+                    name: "Onam Festival",
+                    description: "A cultural celebration of Kerala's biggest festival, featuring traditional dance, music, and a grand feast.",
+        
+                    location: "Kochi Beach"
+                },
+                {
+                    name: "Kochi Muziris Biennale",
+                    description: "A contemporary art festival bringing together artists from across the globe.",
+                
+                    location: "Fort Kochi, Kochi"
+                },
+                {
+                    name: "Kochi Carnival",
+                    description: "An annual carnival featuring parades, cultural performances, and a variety of local food and crafts.",
+                
+                    location: "Marine Drive, Kochi"
+                }
+            ],
+            madurai: [
+                {
+                    name: "Puthu Mandapam Festival",
+                    description: "A cultural event celebrating Tamil traditions with folk dance, music, and exhibitions.",
+                
+                    location: "Puthu Mandapam, Madurai"
+                },
+                {
+                    name: "Madurai Meenakshi Temple Festival",
+                    description: "A grand temple festival with processions, rituals, and cultural events.",
+                
+                    location: "Meenakshi Temple, Madurai"
+                },
+                {
+                    name: "Jallikattu Festival",
+                    description: "A traditional bull-taming sport celebrated in rural Madurai during Pongal.",
+                
+                    location: "Alanganallur, Madurai"
+                }
+            ]
+        };
+
+        // Function to search event suggestions by city
+        function searchEvents() {
+            const cityInput = document.getElementById("citySearch").value.trim().toLowerCase();
+            const eventList = document.getElementById("eventList");
+            eventList.innerHTML = "";  // Clear the previous search results
+
+            if (cityInput === "") {
+                return;
+            }
+
+            if (eventSuggestions[cityInput]) {
+                // If the city exists in the data, display the event suggestions
+                eventSuggestions[cityInput].forEach(event => {
+                    const item = document.createElement("div");
+                    item.classList.add("event-item");
+
+                    item.innerHTML = `
+                        <h3>${event.name}</h3>
+                        <p><strong>Description:</strong> ${event.description}</p>
+                    
+                        <p><strong>Location:</strong> ${event.location}</p>
+                    `;
+                    eventList.appendChild(item);
+                });
+            } else {
+                // If no event suggestions found for the city, display a no results message
+                const noResultsMessage = document.createElement("div");
+                noResultsMessage.classList.add("no-results");
+                noResultsMessage.textContent = "No local events found for the city you entered.";
+                eventList.appendChild(noResultsMessage);
+            }
+        }
+    </script>
+    <button class="back-to-service" onclick="window.location.href='service.html'">Back to Services</button>
+</body>
+</html>

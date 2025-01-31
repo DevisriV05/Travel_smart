@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services - Travel Smart</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+            text-decoration: none;
+        }
+
+        body {
+            background-color: #f1f1f1;
+            padding: 0;
+            margin: 0;
+        }
+
+        .main-content {
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .main-content h1 {
+            font-size: 40px;
+            color: #f46a13;
+            text-transform: uppercase;
+        }
+
+        .service-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 50px;
+        }
+
+        .service-box {
+            background-color: #fff;
+            border-radius: 8px;
+            width: 30%;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .service-box img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .service-box h3 {
+            margin-top: 20px;
+            color: #f46a13;
+        }
+
+        .service-box p {
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .service-box button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #f46a13;
+            border: none;
+            color: white;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .service-box button:hover {
+            background-color: #d85a10;
+        }
+
+        .back-to-home {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #f46a13;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-to-home:hover {
+            background-color: #e45b1e;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-content">
+        <h1>Our Services</h1>
+        <p>Explore our premium services designed to make your journey seamless and enjoyable.</p>
+
+        <div class="service-container">
+            <!-- Accommodation Service -->
+            <div class="service-box">
+                <img src="acc.jpg" alt="Accommodation">
+                <h3>Accommodation</h3>
+                <p>Find the perfect place to stay with a wide range of options from luxury resorts to cozy home stays.</p>
+                <button onclick="window.location.href='acc.html'">Explore Accommodation</button>
+            </div>
+
+            <!-- Food Service -->
+            <div class="service-box">
+                <img src="food.jpg" alt="Food">
+                <h3>Food</h3>
+                <p>Indulge in local delicacies and global cuisines. Our food guides will make sure you don't miss out.</p>
+                <button onclick="window.location.href='rest.html'">Explore Restaurants</button>
+            </div>
+
+            <!-- Local Events Service -->
+            <div class="service-box">
+                <img src="events.jpg" alt="Local Events">
+                <h3>Local Events</h3>
+                <p>Experience local culture through events, festivals, and unique activities. Never miss the fun!</p>
+                <button onclick="window.location.href='events.html'">Explore Events</button>
+            </div>
+        </div>
+    </div>
+
+    <button class="back-to-home" onclick="window.location.href='index.html'">Back to Home</button>
+
+</body>
+</html>

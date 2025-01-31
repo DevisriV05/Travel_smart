@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Travel Smart</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f1f1f1;
+            padding: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .register-form {
+            background-color: #fff;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            width: 300px;
+            text-align: center;
+        }
+        .register-form h2 {
+            margin-bottom: 20px;
+            color: #f46a13;
+        }
+        .register-form input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .register-form button {
+            width: 100%;
+            padding: 10px;
+            background-color: #f46a13;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .register-form button:hover {
+            background-color: #d85a10;
+        }
+        .register-form .footer {
+            margin-top: 10px;
+            font-size: 14px;
+        }
+        .register-form .footer a {
+            color: #f46a13;
+            text-decoration: none;
+        }
+        .register-form .footer a:hover {
+            text-decoration: underline;
+        }
+        .back-to-home {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #f46a13;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-to-home:hover {
+            background-color: #e45b1e;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="register-form">
+        <h2>Sign Up</h2>
+        <form action="your-registration-processing-url" method="POST">
+            <input type="text" placeholder="Full Name" name="name" required>
+            <input type="email" placeholder="Email Address" name="email" required>
+            <input type="password" placeholder="Password" name="password" required>
+            <input type="password" placeholder="Confirm Password" name="confirm_password" required>
+            <button type="submit">Register</button>
+        </form>
+        <div class="footer">
+            <p>Already have an account? <a href="login.html">Login</a></p>
+        </div>
+    </div>
+    <button class="back-to-home" onclick="window.location.href='index.html'">Back to Home</button>
+</body>
+</html>

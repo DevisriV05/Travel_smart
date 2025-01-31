@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewpoint" content="width=device-width,initial-scale=1.0">
+        <title>Travel Smart</title>
+        <style>
+            *{
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: sans-serif;
+                text-decoration: none;
+            }
+            .main_container{
+                min-height: 100vh;
+                background: linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,0.5)),url(download.jpeg);
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+            }
+            nav{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                width: 85%;
+                margin: auto;
+                padding: 15px 0;
+
+            }
+            .logo{
+                width: 110px;
+            }
+            nav ul{
+                display: flex;
+                align-items: center;
+            }
+            nav ul li{
+                list-style: none;
+                margin: 0 18px;
+                position: relative;
+                display: inline-block;
+            }
+            nav ul li::after{
+                content: " ";
+                height: 3px;
+                width: 0;
+                background: #f46a13;
+                position: absolute;
+                left: 0;
+                bottom: -8px;
+                transition: .4s linear;
+            }
+            nav ul li:hover::after{
+                width: 100%;
+            }
+            nav ul li a{
+                font-size: 16px;
+                color: #fff;
+            }
+            .login{
+                padding: 10px 27px;
+                font-size: 15px;
+                font-weight: 600;
+                color: #fff;
+                background-color: #f46a13;
+                border: none;
+                outline: none;
+                margin-left: 10px;
+                cursor: pointer;
+                transition: .3s linear;
+            }
+            .login:hover{
+                scale: 1.1;
+            }
+            .content{
+                min-height: 70vh;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                color: #fff;
+            }
+            h1{
+                font-size: 40px;
+                text-transform: uppercase;
+                font-weight: bold;
+            }
+            p{
+                font-size:18px;
+                margin-top: 10px;
+            }
+            .btns{
+                margin-top: 30px;
+            }
+            .btns button{
+                padding: 10px 30px;
+                margin: 0 20px;
+                background-color: #f46a13;
+                border: none;
+                outline: none;
+                color: #fff;
+                font-size: 15px;
+                font-weight: 600;
+                transition: .3s linear;
+                cursor: pointer;
+            }
+            .btns button:hover{
+                scale: .8;
+            }
+            nav h3 {
+                color: #fff;
+                font-size: 30px; /* Increased font size */
+                font-weight: bold;
+            }
+            .content .btn {
+                margin-top: 30px; /* Add space between paragraph and button */
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .btn {
+                width: 140px;
+                height: 50px;
+                background: linear-gradient(to top, #f25d13, #ba6a2c, #ef965a);
+                color: #fff;
+                border-radius: 50px;
+                border: none;
+                outline: none;
+                cursor: pointer;
+                position: relative;
+                box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+                overflow: hidden;
+            }
+
+            .btn span { 
+                font-size: 12px;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                transition: top 0.5s;
+            }
+
+            .btn-text-one { 
+                position: absolute;
+                width: 100%;
+                top: 50%;
+                left: 0;
+                transform: translateY(-50%);
+            }
+
+            .btn-text-two { 
+                position: absolute;
+                width: 100%;    
+                top: 150%;
+                left: 0;
+                transform: translateY(-50%);
+            }
+
+            .btn:hover .btn-text-one {
+                top: -100%;
+            }
+
+            .btn:hover .btn-text-two {
+                top: 50%;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div class="main_container">
+            <nav class="navbar">
+                <h3>Travel Smart</h3>
+                <ul>
+                    
+                    <li><a href="service.html">Services</a></li>
+                    <li><a href="review.html">Reviews</a></li>
+                    <li><a href="place.html">Places</a></li>
+                    <li><a href="login.html">Login</a></li>
+    
+                </ul>
+                </nav>
+                <div class="content">
+                    <h1>Plan Your Journey with us</h1>
+                    <p>Your Guide to Budget-Friendly Adventures</p>
+                    <a href="food.html">
+                        <button class="btn">
+                            <span class="btn-text-one">Explore More</span>
+                            <span class="btn-text-two">Foooood!</span>
+                        </button>
+                    </a>
+                    </div>
+                </div>
+            </div>
+
+    </body>
+</html>

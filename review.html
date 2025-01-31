@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>South Indian Cities Search</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+        
+        body {
+            background-color: #f1f1f1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        .search-container {
+            width: 80%;
+            max-width: 500px;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            font-size: 18px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .cities-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+        .cities-list li {
+            background-color: #fff;
+            margin: 8px 0;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .cities-list li:hover {
+            background-color: #f46a13;
+            color: #fff;
+        }
+
+        .empty-message {
+            color: #888;
+            font-size: 16px;
+        }
+
+        .reviews-container {
+            margin-top: 30px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            width: 80%;
+            max-width: 500px;
+            text-align: left;
+        }
+
+        .reviews-container h3 {
+            margin-bottom: 10px;
+        }
+
+        .review {
+            margin-bottom: 15px;
+        }
+
+        .review p {
+            font-size: 14px;
+            color: #333;
+        }
+
+        .review .user {
+            font-weight: bold;
+            color: #f46a13;
+        }
+        .back-to-home {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #f46a13;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-to-home:hover {
+            background-color: #e45b1e;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="search-container">
+        <h2>Search South Indian Cities Reviews</h2>
+        <input type="text" id="citySearch" placeholder="Search for Reviews" onkeyup="filterCities()">
+        <ul id="citiesList" class="cities-list"></ul>
+        <p id="emptyMessage" class="empty-message">No cities found</p>
+    </div>
+
+    <div id="reviewsSection" class="reviews-container" style="display: none;">
+        <h3>Reviews</h3>
+        <div id="cityReviews"></div>
+    </div>
+
+    <script>
+        // List of South Indian cities and their corresponding reviews
+        const southIndianCities = [
+            { name: "Chennai", reviews: [
+                { user: "John", review: "Great city with lots of culture! Loved the beaches and food." },
+                { user: "Sara", review: "Too crowded, but the temples are beautiful." }
+            ] },
+            { name: "Hyderabad", reviews: [
+                { user: "Mike", review: "Best biryani in the world! I would visit again for the food." },
+                { user: "Laura", review: "The traffic is horrible, but the history and architecture are amazing." }
+            ] },
+            { name: "Bangalore", reviews: [
+                { user: "Tom", review: "Nice blend of modern and traditional. Great for tech lovers." },
+                { user: "Nina", review: "Air pollution and traffic are a problem, but it's a nice place overall." }
+            ] },
+            { name: "Kochi", reviews: [
+                { user: "Alice", review: "Beautiful backwaters and quiet, peaceful vibe. Great place to relax." },
+                { user: "Eve", review: "The city is a bit small, but the seafood is fantastic!" }
+            ] },
+            { name: "Madurai", reviews: [
+                { user: "Dave", review: "The Meenakshi Temple is a must-see. It’s an incredible place." },
+                { user: "Sophia", review: "The city was quite dusty, but the culture is rich and vibrant." }
+            ] },
+            // Add more cities and reviews as needed
+        ];
+
+        // Get elements
+        const searchInput = document.getElementById('citySearch');
+        const citiesList = document.getElementById('citiesList');
+        const emptyMessage = document.getElementById('emptyMessage');
+        const reviewsSection = document.getElementById('reviewsSection');
+        const cityReviews = document.getElementById('cityReviews');
+
+        // Function to filter cities
+        function filterCities() {
+            const query = searchInput.value.toLowerCase();
+            const filteredCities = southIndianCities.filter(city => city.name.toLowerCase().includes(query));
+
+            // Clear the list before updating it
+            citiesList.innerHTML = '';
+
+            // Show results
+            if (filteredCities.length > 0) {
+                filteredCities.forEach(city => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = city.name;
+                    listItem.onclick = () => showReviews(city); // Display reviews when clicked
+                    citiesList.appendChild(listItem);
+                });
+
+                // Hide "No cities found" message
+                emptyMessage.style.display = 'none';
+            } else {
+                // Show "No cities found" message if no results
+                emptyMessage.style.display = 'block';
+            }
+        }
+
+        // Function to show reviews for the selected city
+        function showReviews(city) {
+            // Clear any previous reviews
+            cityReviews.innerHTML = '';
+            reviewsSection.style.display = 'block';
+
+            const heading = document.createElement('h3');
+            heading.textContent = `Reviews for ${city.name}`;
+            cityReviews.appendChild(heading);
+
+            // Display each review
+            city.reviews.forEach(review => {
+                const reviewDiv = document.createElement('div');
+                reviewDiv.classList.add('review');
+
+                const user = document.createElement('p');
+                user.classList.add('user');
+                user.textContent = review.user;
+
+                const reviewText = document.createElement('p');
+                reviewText.textContent = review.review;
+
+                reviewDiv.appendChild(user);
+                reviewDiv.appendChild(reviewText);
+                cityReviews.appendChild(reviewDiv);
+            });
+        }
+
+        // Initial state: Hide the empty message until the user starts typing
+        emptyMessage.style.display = 'none';
+    </script>
+    <button class="back-to-home" onclick="window.location.href='index.html'">Back to Home</button>
+</body>
+</html>

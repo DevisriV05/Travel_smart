@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget-Friendly Accommodations</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f9f9f9;
+            font-size: 16px;
+            color: #333;
+        }
+
+        header {
+            background-color: #f46a13;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .search-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .search-bar {
+            padding: 10px;
+            width: 300px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+            margin-right: 10px;
+        }
+
+        .search-button {
+            padding: 10px 20px;
+            background-color: #f46a13;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .search-button:hover {
+            background-color: #d65a1e;
+        }
+
+        .accommodation-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding-top: 20px;
+        }
+
+        .accommodation-item {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .accommodation-item h3 {
+            margin-bottom: 10px;
+            color: #f46a13;
+        }
+
+        .accommodation-item p {
+            margin-bottom: 10px;
+        }
+
+        .price-range {
+            font-weight: bold;
+            color: #f46a13;
+        }
+
+        .no-results {
+            text-align: center;
+            font-size: 18px;
+            color: #f46a13;
+            margin-top: 20px;
+        }
+        .back-to-services {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #f46a13;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-to-services:hover {
+            background-color: #e45b1e;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Budget-Friendly Accommodations</h1>
+        <p>Find the best accommodations at affordable prices in South Indian cities.</p>
+    </header>
+
+    <!-- Search Bar -->
+    <div class="search-container">
+        <input type="text" id="citySearch" class="search-bar" placeholder="Enter city name (e.g., Chennai)">
+        <button class="search-button" onclick="searchAccommodation()">Search</button>
+    </div>
+
+    <!-- Accommodation List -->
+    <div id="accommodationList" class="accommodation-list">
+        <!-- Content will be dynamically added here based on search -->
+    </div>
+
+    <script>
+        // Define accommodations for different cities
+        const accommodations = {
+            chennai: [
+                {
+                    name: "Hotel XYZ",
+                    description: "A budget hotel with great service and proximity to the beach.",
+                    priceRange: "₹1200 - ₹1500 per night"
+                },
+                {
+                    name: "Budget Inn",
+                    description: "Affordable rooms with free WiFi and breakfast included.",
+                    priceRange: "₹800 - ₹1000 per night"
+                }
+            ],
+            hyderabad: [
+                {
+                    name: "City Comforts",
+                    description: "Modern and affordable with great customer reviews.",
+                    priceRange: "₹1000 - ₹1300 per night"
+                },
+                {
+                    name: "Royal Budget Stays",
+                    description: "Good location, with easy access to transport hubs.",
+                    priceRange: "₹900 - ₹1100 per night"
+                }
+            ],
+            bangalore: [
+                {
+                    name: "Budget Haven",
+                    description: "A comfortable stay with excellent amenities and free parking.",
+                    priceRange: "₹1200 - ₹1500 per night"
+                },
+                {
+                    name: "Stay Simple",
+                    description: "A clean and simple place to stay, close to the city center.",
+                    priceRange: "₹800 - ₹1000 per night"
+                }
+            ],
+            kochi: [
+                {
+                    name: "Kochi Beach Hotel",
+                    description: "Located near the beach with excellent service and value for money.",
+                    priceRange: "₹1000 - ₹1200 per night"
+                },
+                {
+                    name: "Sea Breeze Inn",
+                    description: "A cozy guest house near the backwaters, perfect for relaxation.",
+                    priceRange: "₹900 - ₹1100 per night"
+                }
+            ],
+            madurai: [
+                {
+                    name: "Hotel Meenakshi",
+                    description: "Budget hotel near the famous Meenakshi temple.",
+                    priceRange: "₹1100 - ₹1400 per night"
+                },
+                {
+                    name: "Lodging Madurai",
+                    description: "A simple yet comfortable place to stay during your visit.",
+                    priceRange: "₹800 - ₹1000 per night"
+                }
+            ]
+        };
+
+        // Function to search accommodations by city
+        function searchAccommodation() {
+            const cityInput = document.getElementById("citySearch").value.trim().toLowerCase();
+            const accommodationList = document.getElementById("accommodationList");
+            accommodationList.innerHTML = "";  // Clear the previous search results
+
+            if (cityInput === "") {
+                return;
+            }
+
+            if (accommodations[cityInput]) {
+                // If the city exists in the data, display the accommodations
+                accommodations[cityInput].forEach(accommodation => {
+                    const item = document.createElement("div");
+                    item.classList.add("accommodation-item");
+
+                    item.innerHTML = `
+                        <h3>${accommodation.name}</h3>
+                        <p>${accommodation.description}</p>
+                        <p class="price-range">${accommodation.priceRange}</p>
+                    `;
+                    accommodationList.appendChild(item);
+                });
+            } else {
+                // If no accommodations found for the city, display a no results message
+                const noResultsMessage = document.createElement("div");
+                noResultsMessage.classList.add("no-results");
+                noResultsMessage.textContent = "No accommodations found for the city you entered.";
+                accommodationList.appendChild(noResultsMessage);
+            }
+        }
+    </script>
+    <button class="back-to-services" onclick="window.location.href='service.html'">Back to Services</button>
+</body>
+</html>
